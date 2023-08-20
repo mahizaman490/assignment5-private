@@ -1,3 +1,4 @@
+// card er jinish er naam ta pabar jonno
 
 
 function handleClickCard() {
@@ -58,51 +59,50 @@ function updateTotalPrices() {
 }
 
 // Function to handle card click
-document.addEventListener('DOMContentLoaded', function() {
-    function handleClickCard(event) {
-        var h2 = this.querySelector('h2');
-        var price = this.querySelector('p span');
+function handleClickCard(event) {
+    var h2 = this.querySelector('h2');
+    var price = this.querySelector('p span');
+    
+    if (h2 && price) {
+        selectedItemsCount++;
+        const li = document.createElement("li");
+        li.innerText = selectedItemsCount + ". " + h2.innerText;
+        selectItemContainer.appendChild(li);
+        totalPrice += parseFloat(price.innerText);
+        updateTotalPrices();
+    }
+}
 
-        if (h2 && price) {
-            selectedItemsCount++;
-            const li = document.createElement("li");
-            li.innerText = selectedItemsCount + ". " + h2.innerText;
-            selectItemContainer.appendChild(li);
-            totalPrice += parseFloat(price.innerText);
+// Attach card click event listeners
+for (var i = 0; i < cards.length; i++) {
+    cards[i].addEventListener('click', handleClickCard);
+}
+
+function applyDiscount() {
+    const applyButton = document.getElementById('applyButton');
+    const couponInput = document.getElementById('couponInput');
+    
+    applyButton.addEventListener('click', function() {
+        if (couponInput.value === 'SELL200') {
+            discount = totalPrice * 0.2;
             updateTotalPrices();
         }
-    }
-
-    cards.forEach(function(card) {
-        card.addEventListener('click', handleClickCard);
     });
+}
 
-    function applyDiscount() {
-        const applyButton = document.getElementById('applyButton');
-        const couponInput = document.getElementById('couponInput');
+applyDiscount();
 
-        applyButton.addEventListener('click', function() {
-            if (couponInput.value === 'SELL200') {
-                discount = totalPrice * 0.2;
-                updateTotalPrices();
-            }
-        });
-    }
+function resetPage() {
+    selectedItemsCount = 0;
+    totalPrice = 0;
+    discount = 0;
+    selectItemContainer.innerHTML = '';
+    updateTotalPrices();
+    document.getElementById('couponInput').value = '';
+    document.getElementById('applyButton').disabled = true;
+    makePurchaseButton.setAttribute('disabled', 'true');
+}
 
-    applyDiscount();
 
-    function resetPage() {
-        selectedItemsCount = 0;
-        totalPrice = 0;
-        discount = 0;
-        selectItemContainer.innerHTML = '';
-        updateTotalPrices();
-        document.getElementById('couponInput').value = '';
-        document.getElementById('applyButton').disabled = true;
-        makePurchaseButton.setAttribute('disabled', 'true');
-    }
-
-    // Attach reset event to modal button
-    document.getElementById('my_modal_8').addEventListener('click', resetPage);
-});
-   
+document.getElementById('my_modal_8').addEventListener('click', resetPage);
+ 
