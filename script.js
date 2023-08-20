@@ -19,10 +19,6 @@ function handleClickCard() {
         };
     }
 }
-
-
-
-
 // button enable er jonno
 function enableButton() {
     var input = document.getElementById('couponInput');
@@ -38,6 +34,13 @@ function enableButton() {
 }
 
 enableButton();
+
+
+
+
+
+
+// button enable er jonno
 
 
 // function enablePurchaseButton() {
