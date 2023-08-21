@@ -19,20 +19,44 @@ function handleClickCard() {
     }
 }
 // button enable er jonno
-function enableButton() {
-    var input = document.getElementById('couponInput');
-    var button = document.getElementById('applyButton');
+// function enableButton() {
+//     var input = document.getElementById('couponInput');
+//     var button = document.getElementById('applyButton');
 
-    input.addEventListener('input', function() {
-        if (input.value === 'SELL200') {
-            button.disabled = false;
-        } else {
-            button.disabled = true;
+//     input.addEventListener('input', function() {
+//         if (input.value === 'SELL200') {
+//             button.disabled = false;
+//         } else {
+//             button.disabled = true;
+//         }
+//     });
+// }
+
+// enableButton();
+
+        function enableButton() {
+            var totalPriceSpan = document.querySelector(".pl-2 span.text-gray-500");
+            var applyButton = document.getElementById("applyButton");
+
+            applyButton.disabled = true; // Initially disable the button
+
+            // Listen for changes in total price
+            totalPriceSpan.addEventListener("DOMSubtreeModified", function () {
+                var totalPrice = parseFloat(totalPriceSpan.textContent);
+                if (totalPrice >= 200) {
+                    applyButton.disabled = false; // Enable the button
+                } else {
+                    applyButton.disabled = true; // Disable the button
+                }
+            });
         }
-    });
-}
 
-enableButton();
+        function handleClickCard() {
+            // ... (existing code for handleClickCard function)
+        }
+
+        // Call the enableButton function to set up the button's initial state and interaction
+        enableButton();
 
 
 let selectedItemsCount = 0;
